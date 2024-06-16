@@ -18,12 +18,6 @@ const Board = () => {
       destinationColumnId,
       itemIndexInFinishColumn,
     }) => {
-      console.log(
-        "moveCard",
-        cardIndexInStartColumn,
-        sourceColumnId,
-        destinationColumnId
-      );
       const startColumnData = columnsData[sourceColumnId];
       const destinationColumnData = columnsData[destinationColumnId];
 
@@ -58,7 +52,7 @@ const Board = () => {
   const reorderCard = useCallback(
     ({ columnId, startIndex, finishIndex }) => {
       const sourceColumnData = columnsData[columnId];
-      console.log("reorderCard", sourceColumnData, startIndex, finishIndex);
+
       const updatedItems = reorder({
         list: sourceColumnData.cards,
         startIndex,
@@ -116,7 +110,6 @@ const Board = () => {
             const destinationColumnId = destinationColumnRecord.data.columnId;
 
             if (sourceColumnId === destinationColumnId) {
-              console.log("hello2");
               const destinationIndex = getReorderDestinationIndex({
                 startIndex: draggedCardIndex,
                 indexOfTarget: sourceColumnData.cards.length - 1,

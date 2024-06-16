@@ -62,7 +62,6 @@ const Card = ({ children, ...card }) => {
         },
         onDragEnter: (args) => {
           setIsDraggedOver(true);
-          console.log("args", args, card.id);
           // Only update the closest edge if the card being dragged is not the same as the card
           if (args.source.data.cardId !== card.id) {
             setClosestEdge(extractClosestEdge(args.self.data));
@@ -85,7 +84,7 @@ const Card = ({ children, ...card }) => {
       })
     );
   }, [card.id]);
-  console.log("closestEdge", closestEdge);
+
   return (
     <div className={`card ${dragging ? "dragging" : ""}`} ref={ref}>
       {children}
