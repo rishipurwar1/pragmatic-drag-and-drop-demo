@@ -1,21 +1,40 @@
 import { useEffect, useRef, useState } from "react";
 import invariant from "tiny-invariant";
-import { draggable } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
+import {
+  draggable,
+  dropTargetForElements,
+} from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
+import { combine } from "@atlaskit/pragmatic-drag-and-drop/combine";
 
 const Card = ({ children, ...card }) => {
   const cardRef = useRef(null);
-  const [isDragging, setIsDragging] = useState(false); // create a state for dragging
+  const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
     const cardEl = cardRef.current;
     invariant(cardEl);
 
-    return draggable({
-      element: cardEl,
-      onDragStart: () => setIsDragging(true), // set isDragging to true when dragging starts
-      onDrop: () => setIsDragging(false), // set isDragging to false when dragging ends
-    });
-  }, []);
+    // Combine draggable and dropTargetForElements cleanup functions
+    // to return a single cleanup function
+    return combine(
+      draggable({
+        element: cardEl,
+        onDragStart: () => setIsDragging(true),
+        onDrop: () => setIsDragging(false),
+        getInitialData: () => ({ type: "card", cardId: card.id }), // To attach data to a draggable item when dragging starts
+      }),
+      // Add dropTargetForElements to make the card a drop target
+      dropTargetForElements({
+        element: cardEl,
+        getData: () => ({ type: "card", cardId: card.id }), // To attach data to a drop target
+        onDragEnter: (args) => {
+          if (args.source.data.cardId !== card.id) {
+            console.log("onDragEnter", args);
+          }
+        },
+      })
+    );
+  }, [card.id]);
   return (
     // Add dragging class when isDragging is true
     <div className={`card ${isDragging ? "dragging" : ""}`} ref={cardRef}>
