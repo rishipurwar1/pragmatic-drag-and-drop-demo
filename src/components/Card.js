@@ -60,6 +60,7 @@ const Card = ({ children, ...card }) => {
             allowedEdges: ["top", "bottom"],
           });
         },
+        getIsSticky: () => true,
         onDragEnter: (args) => {
           setIsDraggedOver(true);
           // Only update the closest edge if the card being dragged is not the same as the card
