@@ -9,8 +9,8 @@ const Board = () => {
 
   return (
     <div className="board">
-      {columnsData.map((columnData) => (
-        <Column key={columnData.columnId} {...columnData} />
+      {Object.keys(columnsData).map((columnId) => (
+        <Column key={columnId} {...columnsData[columnId]} />
       ))}
     </div>
   );
