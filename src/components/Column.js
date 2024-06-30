@@ -19,6 +19,7 @@ const Column = ({ columnId, title, cards }) => {
       onDragLeave: () => setIsDraggedOver(false),
       onDrop: () => setIsDraggedOver(false),
       getData: () => ({ columnId }),
+      getIsSticky: () => true,
     });
   }, [columnId]);
   return (

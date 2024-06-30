@@ -1,5 +1,5 @@
-export const BOARD_COLUMNS = [
-  {
+export const BOARD_COLUMNS = {
+  todo: {
     columnId: "todo",
     title: "To do",
     cards: [
@@ -9,7 +9,7 @@ export const BOARD_COLUMNS = [
       { id: 6, content: "Task 6" },
     ],
   },
-  {
+  "in-progress": {
     columnId: "in-progress",
     title: "In progress",
     cards: [
@@ -18,7 +18,7 @@ export const BOARD_COLUMNS = [
       { id: 8, content: "Task 8" },
     ],
   },
-  {
+  done: {
     columnId: "done",
     title: "Done",
     cards: [
@@ -27,4 +27,4 @@ export const BOARD_COLUMNS = [
       { id: 10, content: "Task 10" },
     ],
   },
-];
+};
